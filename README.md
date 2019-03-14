@@ -25,6 +25,7 @@ Dans ce TER nous ferons une étude sur les différents bras robotique que nous a
 un arduino et une raspberry.
 
 
-Semaine du 11/03/2019:
+Semaine du 11/03/2019: Nous finirons le calibrage samedi pour le moment nous avons bien compris le fonctionnement du bras ainsi 
+que l'IDE. Nous pensons aussi dès la semaine prochaine commencer les calculs d'angles
 
 
