@@ -26,6 +26,9 @@ un arduino et une raspberry.
 
 
 Semaine du 11/03/2019: Nous finirons le calibrage samedi pour le moment nous avons bien compris le fonctionnement du bras ainsi 
-que l'IDE. Nous pensons aussi dès la semaine prochaine commencer les calculs d'angles
-
+que l'IDE.
+Cette semaine nous avons démonté et remonté tous les moteurs du bras robotique afin de les calibrer. Après avoir fini 
+l'assemblage nous avons remarqué que ses mouvements étaient trop brusques de ce fait nous avons diminué la vitesse de ses 
+mouvements.
+Pour la semaine prochaine on essayera de lui faire prendre un objet quelconque pour avoir une vision plus précise des possibilités offertes pas le robot
 
