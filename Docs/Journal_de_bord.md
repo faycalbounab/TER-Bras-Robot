@@ -1,10 +1,10 @@
 # Journal de bord
 
 ### Semaine du 04/03/2019 
-Nous avons recuperer le bras robotique aupres de nos encadrants, nous allons commencer par calibrer le 
-bras avant de réfléchir au jeux que nous allons étudier. Nous pensons déjà travaillé sur le jeu de société Takenoko et le jeu 
+Nous avons recuperé le bras robotique aupres de nos encadrants, nous allons commencer par calibrer le 
+bras avant de réfléchir au jeux que nous allons étudier. Nous pensons déjà travailler sur le jeu de société Takenoko et le jeu 
 d'échec.
-Dans ce TER nous ferons une étude sur les différents bras robotique que nous aurions pu avoir et voir aussi la différence entre 
+Dans ce TER nous ferons une étude sur les différents bras robotiques que nous aurions pu avoir et voir aussi la différence entre 
 un arduino et une raspberry.
 
 ### Semaine du 11/03/2019
