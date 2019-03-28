@@ -19,3 +19,8 @@ Cette semaine nous avons réussi à faire attraper et reposer une pièce du jeu 
 retomber.
 Pour la semaine prochaine on essaiera de faire des calculs sur les angles pour faire en sorte que les différentes parties 
 (surtout les parties gérées par le moteur 2,3,4) du robot ne se gênent pas lors du mouvement. 
+
+
+### Semaine du 25/03/2019
+Cette semaine nous avons préparé un quadrillage pour positionner en (x,y) le bras dans l'espace. Puis, nous avons commencé à calculer les angles de déplacement des moteurs et leur position initial dans l'espace.
+Pour la semaine prochaine nous continuerons sur les calculs afin de les implémenter.
