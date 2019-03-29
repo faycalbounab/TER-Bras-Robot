@@ -24,3 +24,6 @@ Pour la semaine prochaine on essaiera de faire des calculs sur les angles pour f
 ### Semaine du 25/03/2019
 Cette semaine nous avons préparé un quadrillage pour positionner en (x,y) le bras dans l'espace. Puis, nous avons commencé à calculer les angles de déplacement des moteurs et leur position initial dans l'espace.
 Pour la semaine prochaine nous continuerons sur les calculs afin de les implémenter.
+
+#### Réunion avec Monsieur Rennevier
+Nous avons fait une démonstration du bras robotique, il a ainsi fait une prise d'une piece d'échec. Ensuite nous avons vu avec Monsieur Rennevier s'il y a la possibilité d'intégrer le wifi à notre carte arduino. Nous allons faire une recherche sur la carte wifi à commander et sur les différences entre les raspberrys et notre carte arduino.
