@@ -26,4 +26,11 @@ Cette semaine nous avons préparé un quadrillage pour positionner en (x,y) le b
 Pour la semaine prochaine nous continuerons sur les calculs afin de les implémenter.
 
 #### Réunion avec Monsieur Rennevier
-Nous avons fait une démonstration du bras robotique, il a ainsi fait une prise d'une piece d'échec. Ensuite nous avons vu avec Monsieur Rennevier s'il y a la possibilité d'intégrer le wifi à notre carte arduino. Nous allons faire une recherche sur la carte wifi à commander et sur les différences entre les raspberrys et notre carte arduino.
+Nous avons fait une démonstration du bras robotique, il a ainsi fait une prise d'une piece d'échec. Ensuite nous avons vu avec 
+Monsieur Rennevier s'il y a la possibilité d'intégrer le wifi à notre carte arduino. Nous allons faire une recherche sur la 
+carte wifi à commander et sur les différences entre les raspberrys et notre carte arduino.
+
+
+### Semaine du 01/04/2019
+Cette semaine nous avons fini les calculs des angles(voir fichier Angles), nous avons commencé un système de contrainte(formules) pour avoir le champ d'action du bras robotique.
+Pour le découpage du code, nous avons fait une classe servo pour avoir des objets qui correspondent à chacun des servo.
