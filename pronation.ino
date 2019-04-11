@@ -21,15 +21,18 @@ class Servo {
     float coeffDir;
 
     int valeurPos = 0;
+    int initAngle;
 
     public:
-      Servo(int numServo, int mini,int maxi,float posX,float posY,float posZ,float coeffDir){
+      Servo(int numServo, int mini,int maxi,float posX,float posY,float posZ,float coeffDir, int initAngle){
+        this->numServo = numServo;
         this->mini = mini;
         this->maxi = maxi;
         this->posX = posX;
         this->posY = posY;
         this->posZ = posZ;
         this->coeffDir = coeffDir;
+        this->initAngle = initAngle;
       }
       
       float getposX(){
@@ -46,7 +49,13 @@ class Servo {
 
       //prend un angle en parametre et calcule la valeur du déplacement du servo
       int calculeMoveDegre(int angle){
-        return coeffDir * angle + mini;
+        if(numServo == 1){
+          return coeffDir * (initAngle - angle) + mini;
+        }
+        else{
+          return coeffDir * (angle - initAngle) + mini ;
+        }
+        
       }
 
       void moveValeur(int valeur){
