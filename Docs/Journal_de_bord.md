@@ -34,3 +34,8 @@ carte wifi à commander et sur les différences entre les raspberrys et notre ca
 ### Semaine du 01/04/2019
 Cette semaine nous avons fini les calculs des angles(voir fichier Angles), nous avons commencé un système de contrainte(formules) pour avoir le champ d'action du bras robotique.
 Pour le découpage du code, nous avons fait une classe servo pour avoir des objets qui correspondent à chacun des servo.
+
+### Semaine du 08/04/2019
+Cette semaine nous avons fait un bilan avec Monsieur Malapert, nous avons testé des formules qui permettent de calculer les angles afin d'effectuer un mouvement avec le bras. Nous intégrerons ces formules au code par la suite.
+Nous allons aussi faire une étude en parallèle sur la possibilité de passer sur Raspberry.
+
