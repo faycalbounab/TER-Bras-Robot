@@ -18,6 +18,11 @@ http://anleitung.joy-it.net/?goods=motorino
 
 https://www.gotronic.fr/art-bras-robotique-joy-it-robot02-26637.htm
 
+## Comment marche le projet ?
+
+Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la arduino. Une fois cette étape finie on compile puis on 
+téléverse pour lancer le bras ; le bras robotique effectuera un mouvement de pronation sur la pièce du jeu d'échecs (le mouvement est 
+composé de 5 étapes ; chacune d'elles représente la rotation d'un des servo-moteurs(servo-moteur 4 exclue)) .
 
 
 
