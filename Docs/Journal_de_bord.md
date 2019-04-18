@@ -39,3 +39,6 @@ Pour le découpage du code, nous avons fait une classe servo pour avoir des obje
 Cette semaine nous avons fait un bilan avec Monsieur Malapert, nous avons testé des formules qui permettent de calculer les angles afin d'effectuer un mouvement avec le bras. Nous intégrerons ces formules au code par la suite.
 Nous allons aussi faire une étude en parallèle sur la possibilité de passer sur Raspberry.
 
+### Semaine du 15/04/2019
+Cette semaine nous avons mis en ligne les calculs via un fichier HTML, qui renvoie vers une page où l'on peut préciser les coordonnées dans l'espace(x,y). Il y a aussi en ligne le début de l'étude des bras robotiques.
+
