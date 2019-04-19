@@ -40,5 +40,6 @@ Cette semaine nous avons fait un bilan avec Monsieur Malapert, nous avons testé
 Nous allons aussi faire une étude en parallèle sur la possibilité de passer sur Raspberry.
 
 ### Semaine du 15/04/2019
-Cette semaine nous avons mis en ligne les calculs via un fichier HTML, qui renvoie vers une page où l'on peut préciser les coordonnées dans l'espace(x,y). Il y a aussi en ligne le début de l'étude des bras robotiques.
+Cette semaine nous avons mis en ligne les calculs via un fichier HTML, qui renvoie vers une page où l'on peut préciser les coordonnées dans l'espace(x,y). Il y a aussi en ligne le début de l'étude des bras robotiques. Nous avons recalibré le Servo4.
+Enfin nous avons intégré une fonction de calcul des angles de rotations des 4 premiers Servo.
 
