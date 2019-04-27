@@ -43,3 +43,6 @@ Nous allons aussi faire une étude en parallèle sur la possibilité de passer s
 Cette semaine nous avons mis en ligne les calculs via un fichier HTML, qui renvoie vers une page où l'on peut préciser les coordonnées dans l'espace(x,y). Il y a aussi en ligne le début de l'étude des bras robotiques. Nous avons recalibré le Servo4.
 Enfin nous avons intégré une fonction de calcul des angles de rotations des 4 premiers Servo.
 
+### Semaine du 22/04/2019
+Cette semaine nous avons fait deux fonctions qui renvoient les angles de rotation des 4 premiers Servos sous forme d'un tableau.
+Nous lisons les coordonnées x, y et z en entrée standart que nous utilisons pour effectuer un mouvement.
