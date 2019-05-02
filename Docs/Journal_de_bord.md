@@ -46,3 +46,5 @@ Enfin nous avons intégré une fonction de calcul des angles de rotations des 4 
 ### Semaine du 22/04/2019
 Cette semaine nous avons fait deux fonctions qui renvoient les angles de rotation des 4 premiers Servos sous forme d'un tableau.
 Nous lisons les coordonnées x, y et z en entrée standart que nous utilisons pour effectuer un mouvement.
+
+### Semaine du 29/04/2019
