@@ -25,12 +25,9 @@ class Servo {
 
       //prend un angle en parametre et calcule la valeur du déplacement du servo
       int calculeMoveDegre(int angle){
-        if(numServo == 1){
-          return coeffDir * (initAngle - angle) + mini;
-        }
-        else{
-          return coeffDir * (angle - initAngle) + mini ;
-        } 
+        if(numServo == 1) return coeffDir * (initAngle - angle) + mini;
+        else return coeffDir * (angle - initAngle) + mini ;
+        
       }
 
       void moveValeur(int valeur){
@@ -58,9 +55,19 @@ class Servo {
       }
 };
 
+
+int cmTValeurServo5(float cm){
+  if(cm >= 0 || cm <= 15.5) return 100*cm/9 + 200;
+  return 200;
+}
+
 int radianToDegre(float radian){
   return radian /PI*180 ;
 }
+
+
+
+
 
 int* calculeDesAngles(int x, int y, int z){
 
@@ -132,22 +139,17 @@ int* calculeDesAnglesApartirDuServo3(int x, int y, int z){
 
   //position du Servo4
   int S4y = 0;
-
+  
   //Calcule des angles
   
   float radianS0 = acos(x/sqrt(x * x + y * y));
   int angleS0 =  radianToDegre(radianS0);
 
-  //pour l'instant cet angle est prédéfini
-  float radianS3 = PI / 4;
+  //pour l'instant cet angle est prÈdÈfini
+  float radianS3 = PI / 2;
   int angleS3 = radianToDegre(radianS3);
   
-  float S2y = cos(radianS3) * distance2 + S1y;
-  float S2z = sin(radianS3) * distance2 + S1z;
-
-  float S2toS4g = y-S2y;
-  float S2toS4d = z-S2z;
-  float S2toS4 = sqrt(distance3*distance3+distance2*distance2-distance2*distance2*distance3*cos(angleS3));
+  float S2toS4 = sqrt(distance3*distance3+distance2*distance2-2*distance2*distance3*cos(angleS3));
 
   float angleB2 = acos((distance2*distance2+S2toS4*S2toS4-(distance3*distance3))/(2*S2toS4*distance2));
   
@@ -162,14 +164,14 @@ int* calculeDesAnglesApartirDuServo3(int x, int y, int z){
   float angleB =angleB1+angleB2;
 // A modif 
   float S1toS3g = S3y-S1y;
-  float S1toS3d = S3y-S1z;
+  float S1toS3d = S3z-S1z;
   float S1toS3 = sqrt(S1toS3g*S1toS3g+S1toS3d*S1toS3d);
 
   float angleA1 = acos((distance1*distance1+S1toS3*S1toS3-(distance2*distance2))/(2*S1toS3*distance1));
 
   float angleA2 = acos((S4y-S1y)/S1toS4);
   
-  float angleA = angleA1+angleA2; 
+  float angleA = PI - (angleA1+angleA2); 
 
   int angleS1 = radianToDegre(angleA);
   int angleS2 = radianToDegre(angleB);
@@ -182,5 +184,5 @@ int* calculeDesAnglesApartirDuServo3(int x, int y, int z){
   tab[3] = angleS3;
 
   return tab; 
-  
+
 }
