@@ -48,3 +48,4 @@ Cette semaine nous avons fait deux fonctions qui renvoient les angles de rotatio
 Nous lisons les coordonnées x, y et z en entrée standart que nous utilisons pour effectuer un mouvement.
 
 ### Semaine du 29/04/2019
+Cette semaine nous avons implémenté la prise et la pose d'une pièce (on rentre des positions pour la position de la pronation, le bras se déplace vers la position indiquée, il prend la pièce et se met en position initiale puis attend les nouvelles coordonnées qui indiquent la position où il doit déposer la pièce).
