@@ -23,6 +23,7 @@ https://www.gotronic.fr/art-bras-robotique-joy-it-robot02-26637.htm
 Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la arduino. 
 Une fois cette étape finie on compile puis on téléverse pour lancer le bras. 
 Il faut ensuite entrer 3 coordonnées pour lui indiquer l'endroit où il doit se déplacer afin qu'il effectue un mouvement.
+Et la valeur 0 pour dire s'il doit prendre un objet ou 1 s'il doit déposer un objet.
 Lorsque nous entrons les coordonnées dans le moniteur, il faut séléctionner l'option "pas de fin de ligne".
 Le mouvement est composé de 4 étapes, 
 chacune d'elles représente la rotation d'un des servo-moteurs(les Servos 4 et 5 sont exclus).
