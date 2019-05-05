@@ -10,19 +10,21 @@ class Servo {
     int mini;
     int maxi;
     float coeffDir;
-    int valeurPos = 0;
+    int valeurPos;
     int initAngle;
+    int vitesse;
 
     public:
-      Servo(int numServo, int mini,int maxi,float coeffDir, int initAngle){
+      Servo(int numServo, int mini,int maxi,int valeurPos, float coeffDir, int initAngle, int vitesse){
         this->numServo = numServo;
         this->mini = mini;
         this->maxi = maxi;
+        this->valeurPos = valeurPos;
         this->coeffDir = coeffDir;
         this->initAngle = initAngle;
+        this->vitesse = vitesse;
       }
       
-
       //prend un angle en parametre et calcule la valeur du déplacement du servo
       int calculeMoveDegre(int angle){
         if(numServo == 1) return coeffDir * (initAngle - angle) + mini;
@@ -34,13 +36,13 @@ class Servo {
           if(valeur > valeurPos){
             for (uint16_t pulselen = valeurPos; pulselen < valeur; pulselen++) {
             pwm.setPWM(numServo, 0, pulselen);
-            delay(10);
+            delay(vitesse);
             }
           }
           else{
             for (uint16_t pulselen = valeurPos; pulselen > valeur; pulselen--) {
               pwm.setPWM(numServo, 0, pulselen);
-              delay(10);
+              delay(vitesse);
             }
           }
           this->valeurPos = valeur;
