@@ -51,3 +51,8 @@ Nous lisons les coordonnées x, y et z en entrée standart que nous utilisons po
 Cette semaine nous avons implémenté la prise et la pose d'une pièce (on rentre des positions pour la position de la pronation, le bras se déplace vers la position indiquée, il prend la pièce et se met en position initiale puis attend les nouvelles coordonnées qui indiquent la position où il doit déposer la pièce).
 Une diminution des mouvements incontrôlables lors du 1er mouvement.
 Et un moyen de contrôler la vitesse des servos.
+
+### Semaine du 06/04/2019
+
+
+### Réunion avec Madame Pelleau
