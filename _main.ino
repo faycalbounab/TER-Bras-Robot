@@ -1,10 +1,10 @@
 
 Servo servo0 = Servo(0,90,580,90,2.45,0,10);
 Servo servo1 = Servo(1,90,450,290,100.0/45.0,155,10);
-Servo servo2 = Servo(2,100,580,325,5.0/2.0,90,0);
+Servo servo2 = Servo(2,100,580,325,5.0/2.0,90,10);
 Servo servo3 = Servo(3,90,390,290,200.0/75,90,10);
 Servo servo4 = Servo(4,90,570,290,100/45,0,10);
-Servo servo5 = Servo(5,200,450,210,100/45,0,0); 
+Servo servo5 = Servo(5,200,450,210,100/45,0,10); 
 
 void setup() {
   Serial.begin(9600);
@@ -15,7 +15,7 @@ void setup() {
 }
 
 void loop(){
-
+  
   int x,y,z,typeMouvement;
 
   Serial.println("Début lecture ");
@@ -49,7 +49,8 @@ void loop(){
   int* tab = new int[5];
 
   tab = calculeDesAngles(x,y,z);
-  //tab = calculeDesAnglesApartirDuServo3(x,y,z);
+  //tab = calculeAngleVariateur(x,y,z);
+  
 
   Serial.print("angle0 ");
   Serial.println(tab[0]);
@@ -59,7 +60,6 @@ void loop(){
   Serial.println(tab[2]);
   Serial.print("angle3 ");
   Serial.println(tab[3]);
-
 
   servo4.moveValeur(servo4.calculeMoveDegre(90));
   delay(1500);
