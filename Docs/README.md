@@ -1,6 +1,6 @@
-# TER-Joy-It
+# TER : Bras Robot pour jeu de plateau
 
-Team : Berriri Mehdi, Bounab Fayçal, Djema Sofiane, Doglio Arthur
+Équipe : Berriri Mehdi, Bounab Fayçal, Djema Sofiane, Doglio Arthur
 
 Encadrants : Marie Pelleau, Philippe Renevier
 
