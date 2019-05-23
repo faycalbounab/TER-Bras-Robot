@@ -1,15 +1,5 @@
 # Études
 
-Ici nous ferons l'études des différents bras robotique et des arduino.
-
-Nous avons trouvé une arduino avec un module wifi:
-
-https://fr.rs-online.com/web/p/kits-de-developpement-pour-processeurs-et-microcontroleurs/1763651/?cm_mmc=FR-PPC-DS3A-_-google-_-DSA_FR_FR_Semiconductors-_-Processor_Microcontroller_Development_Kits-_-DYNAMIC+SEARCH+ADS&matchtype=b&aud-387204424446:dsa-529594230473&gclid=Cj0KCQjw1pblBRDSARIsACfUG10snLQ1JqlszIDtuQfHnuDrhz-cUnWRAG0-zCvrdZSt6_xO9X9EeN4aAt3mEALw_wcB&gclsrc=aw.ds
-
-ou
-
-https://store.arduino.cc/arduino-uno-wifi-rev2
-
 ## Arduino
 
 La carte Arduino est la base de la programmation avec microcontrôleur (un « mini-ordinateur » qui se présente sous la forme 
@@ -17,18 +7,7 @@ d’un circuit intégré). Il existe de nombreuses versions de cette carte, et i
 correspond le mieux pour son projet.
 
 
-### Arduino Uno Rev 3 (DEBUTANT)
-
-Il y a de très nombreuses ressources, énormément de tutoriels et d’exemples de projets sont disponibles en ligne. Ce qui en 
-fait de facto la carte idéale pour débuter.
-
-Une petite limitation cependant, son faible nombre de ports (6 analogiques et 14 numériques 1/0 dont 6 pwm). Elle conviendra 
-donc mieux à des petits projets.
-
-Cette carte est utile si vous vous lancez dans des projets sur des robots mobiles autonomes ou connectés, ou 
-prévoyez de faire de la domotique dans une seule pièce. 
-
-### Arduino Leonardo (DEBUTANT/INTERMEDIAIRE)
+### Arduino Leonardo 
 
 La Leonardo est sortie après la carte Arduino Uno, et a été dotée d’un nouveau type de processeur, et d’une ergonomie revue.
 
@@ -38,17 +17,38 @@ Cette carte sera très bien pour débuter un projet de domotique, comme la gesti
 
 Vous pouvez l’utiliser bien entendu sur des projets de niveau intermédiaire.
 
-### Arduino Mega (INTERMEDIAIRE/EXPERT)
-
-La carte Arduino Mega est la plus vendue après l’Arduino Uno. Dotée d’un fonctionnement identique, la seule différence sera le nombre de ports disponibles (16 analogiques et 54 numériques dont 14 pwm, contre 6 analogiques et 14 numériques 1/0 dont 6 pwm).
-
-Cette carte offre énormément de nouvelles perspectives, mais elle est déconseillée à un débutant car interagir avec un smartphone demande pas mal de connaissances en programmation Java. Suffisamment pour développer vos propres applications !
-
-### 
+https://www.arduino.cc/en/Main/Arduino_BoardLeonardo
 
 
+### Arduino Uno WIFI REV2
 
+Il possède 14 broches d'entrée/sortie numériques (dont 6 peuvent être utilisées comme sorties PWM), 6 entrées analogiques, un 
+résonateur céramique de 16 MHz, une connexion USB, une prise d'alimentation, un en-tête ICSP et un bouton de réinitialisation. 
+Elle comporte tout ce qui est nécessaire à la prise en charge du microcontrôleur. Il vous suffit de la connecter à un 
+ordinateur à l'aide d'un cordon USB ou de l'alimenter avec un adaptateur c.a./c.c. ou une batterie. Le module Wi-Fi est un SoC 
+autonome avec pile de protocole TCP/IP qui peut donner accès à votre réseau Wi-Fi. (Ou l'appareil peut agir en tant que point 
+d'accès). Une caractéristique utile de Uno Wi-Fi est la prise en charge de la programmation OTA (over-the-air), que ce soit 
+pour le transfert d'esquisses Arduino ou de firmware Wi-Fi.
 
+Il comprend un nouveau microprocesseur 8 bits à partir de Microchip
+Il est doté d'un IMU (unité de mesure d'inertie)
+Vous pouvez vous connecter à votre réseau Wi-Fi avec le module wifi intégré
+La connexion wifi est sécurisée par le nouvel accélérateur de puce cryptée ECC608 
+
+https://store.arduino.cc/arduino-uno-wifi-rev2
+
+ou
+
+https://fr.rs-online.com/web/p/kits-de-developpement-pour-processeurs-et-microcontroleurs/1763651/?cm_mmc=FR-PPC-DS3A-_-google-_-DSA_FR_FR_Semiconductors-_-Processor_Microcontroller_Development_Kits-_-DYNAMIC+SEARCH+ADS&matchtype=b&aud-387204424446:dsa-529594230473&gclid=Cj0KCQjw1pblBRDSARIsACfUG10snLQ1JqlszIDtuQfHnuDrhz-cUnWRAG0-zCvrdZSt6_xO9X9EeN4aAt3mEALw_wcB&gclsrc=aw.ds
+
+## Raspberry
+
+### Raspberry pi 3
+
+Nous avons essayé d'utiliser une raspberry pi 3 à la place de l'arduino mais nous avons eu des difficultés pour la 
+configuration de celle-ci, de plus notre code actuel est en C++ et pour la raspberry c'est du Python.
+Il faut aussi un écran pour bosser directement sur la raspberry ou créer une VM afin de voir l'interface de la raspberry qui a 
+un environnement Unix.
 
 ## Bras Robotique
 
