@@ -64,4 +64,6 @@ Nous avons recalibré les Servos 2 et 3. Nous commençons le travail sur l'ardui
 ### Réunion avec Mr Rennevier
 Nous avons présenté les mouvements de prise et pose d'un fou. Nous avons parlé du jeu d'échec, nous allons faire jouer le bras sur un plateau de taille 5x5. Nous essayons d'activer plusieurs servos en même temps et faire fonctionner le wifi. Mr Rennevier nous a conseillé de tester les limites du bras ( précision et portée ), quelles informations intégrer dans le rapport (calibrage du bras ) et comment réaliser une vidéo pour la présentation (durée de la vidéo et présenter une partie en peu de coup).
 
-# Semaine du 20/05/2019
+### Semaine du 20/05/2019
+Cette semaine, nous avons repris des mesures plus précises des rotations des Servos (en prenant des photos et avec un rapporteur virtuel). Nous avons testé l'arduino wifi qui fait fonctionner le bras correctement et nous avons commencé à faire un client pour celle-ci.
+Nous ferons une pause la semaine prochaine.
