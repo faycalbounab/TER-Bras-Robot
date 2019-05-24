@@ -1,8 +1,7 @@
-
 Servo servo0 = Servo(0,90,580,90,2.45,0,10);
-Servo servo1 = Servo(1,90,450,290,100.0/45.0,155,10);
-Servo servo2 = Servo(2,100,580,325,5.0/2.0,90,10);
-Servo servo3 = Servo(3,90,390,290,200.0/75,90,10);
+Servo servo1 = Servo(1,90,475,250,2.5,154,10);
+Servo servo2 = Servo(2,100,580,530,2.5,5,10);
+Servo servo3 = Servo(3,90,390,250,2.5,10,10); 
 Servo servo4 = Servo(4,90,570,290,100/45,0,10);
 Servo servo5 = Servo(5,200,450,210,100/45,0,10); 
 
@@ -15,7 +14,8 @@ void setup() {
 }
 
 void loop(){
-  
+
+
   int x,y,z,typeMouvement;
 
   Serial.println("Début lecture ");
@@ -46,6 +46,11 @@ void loop(){
   }
   Serial.println("Fin leture");
   
+
+
+
+  
+  
   int* tab = new int[5];
 
   tab = calculeDesAngles(x,y,z);
@@ -71,30 +76,30 @@ void loop(){
   
   
   servo0.moveValeur(servo0.calculeMoveDegre(tab[0]));
-  delay(1500);
+  delay(500);
   servo1.moveValeur(servo1.calculeMoveDegre(tab[1]));
-  delay(1500);
+  delay(500);
   servo2.moveValeur(servo2.calculeMoveDegre(tab[2]));
-  delay(1500);
+  delay(500);
   servo3.moveValeur(servo3.calculeMoveDegre(tab[3]));
-  delay(1500);
+  delay(500);
 
   if(typeMouvement == 0){
     servo5.moveValeur(210);
-    delay(1500);
+    delay(500);
   }
   else{
     servo5.moveValeur(250);
-    delay(1500);
+    delay(500);
   }
   
 
   servo1.moveValeur(servo1.calculeMoveDegre( 90 ));
-  delay(1500);
+  delay(500);
   servo2.moveValeur(servo2.calculeMoveDegre( 180 ));
-  delay(1500);
+  delay(500);
   servo3.moveValeur(servo3.calculeMoveDegre( 160 ));
-  delay(1500);
+  delay(500);
   
 
   Serial.println("");
