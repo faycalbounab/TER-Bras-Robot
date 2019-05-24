@@ -22,17 +22,14 @@ utiliserez un bras robotique. Ce TER a plusieurs objectifs, à savoir :
 Tout d'abord nous bossons sur l'IDE d'Arduino du coup voici le lien pour télécharger l'IDE :
 https://www.arduino.cc/en/Main/Software#
 
-Ensuite devons télécharger une librairie pour l'ajouter dans la librairie de notre IDE
-
-![Figure](~/fayc/Desktop/arduino.jpg)
-
-Cette librairie peut etre télécharger sur le git hub ci dessous :
+Ensuite devons télécharger une librairie pour l'ajouter dans la librairie de notre IDE,
+cette librairie peut être téléchargé sur le github ci-dessous :
 
 https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library
 
 
 
-###
+### Lancer le bras
 
 Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la arduino. 
 Une fois cette étape finie on compile puis on téléverse pour lancer le bras. 
