@@ -14,9 +14,6 @@ utiliserez un bras robotique. Ce TER a plusieurs objectifs, à savoir :
 
 -Mettre en oeuvre quelques mouvements dans un jeu réel, en fixant les emplacements ou en utilisant une librairie de reconnaissance pour les éléments d'un jeu.
 
-http://anleitung.joy-it.net/?goods=motorino
-
-https://www.gotronic.fr/art-bras-robotique-joy-it-robot02-26637.htm
 
 ## Comment marche le projet ?
 
