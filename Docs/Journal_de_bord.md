@@ -52,14 +52,16 @@ Cette semaine nous avons implémenté la prise et la pose d'une pièce (on rentr
 Une diminution des mouvements incontrôlables lors du 1er mouvement.
 Et un moyen de contrôler la vitesse des servos.
 
-### Semaine du 06/04/2019
+### Semaine du 06/05/2019
 Cette semaine nous avons implémenté deux approches permettant de calculer les mouvements que doivent effectuer les Servos du bras pour se déplacer vers une coordonnée (x,y,z).
 
 ### Réunion avec Madame Pelleau
 Nous avons présenté les mouvements de prise et pose d'un fou, cependant il y avait encore des imprecisions causées par une méthode de calcul des déplacements qui n'était pas aboutie. Nous avons discuté d'une possible augmentation de la portée du bras grâce à de plus grandes équerres. Nous avons aussi dit que nous avons l'intention de travailler sur le contrôle à distance du bras grâce à une raspberry et l'arduino que Mr Renevier nous a déposé. Mme Pelleau nous a aussi laissé un module wifi pour arduino.
 
-### Semaine du 13/04/2019
+### Semaine du 13/05/2019
 Nous avons recalibré les Servos 2 et 3. Nous commençons le travail sur l'arduino wifi et nous avons essayé de faire en sorte de bouger plusieurs servos en même temps mais cela n'est pas possible car le temps de calcule nécessaire est trop important.
 
 ### Réunion avec Mr Rennevier
 Nous avons présenté les mouvements de prise et pose d'un fou. Nous avons parlé du jeu d'échec, nous allons faire jouer le bras sur un plateau de taille 5x5. Nous essayons d'activer plusieurs servos en même temps et faire fonctionner le wifi. Mr Rennevier nous a conseillé de tester les limites du bras ( précision et portée ), quelles informations intégrer dans le rapport (calibrage du bras ) et comment réaliser une vidéo pour la présentation (durée de la vidéo et présenter une partie en peu de coup).
+
+# Semaine du 20/05/2019
