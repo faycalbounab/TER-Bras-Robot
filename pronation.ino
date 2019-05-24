@@ -6,13 +6,13 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 class Servo {
 
   private : 
-    int numServo;
-    int mini;
-    int maxi;
-    float coeffDir;
-    int valeurPos;
-    int initAngle;
-    int vitesse;
+    int numServo; //port sur lequel est branché le Servo
+    int mini; //valeur minumum du Servo
+    int maxi; //valeur maximum du Servo
+    float coeffDir; //coefficient directeur de la fonction calculeMoveDegre
+    int valeurPos; //valeur en position initiale
+    int initAngle; //angle minimum du Servo
+    int vitesse; //vitesse de rotation du Servo
 
     public:
       Servo(int numServo, int mini,int maxi,int valeurPos, float coeffDir, int initAngle, int vitesse){
@@ -32,6 +32,7 @@ class Servo {
         
       }
 
+      // déplace le Servo en position valeur passée en paramètre
       void moveValeur(int valeur){
           if(valeur > valeurPos){
             for (uint16_t pulselen = valeurPos; pulselen < valeur; pulselen++) {
@@ -58,18 +59,19 @@ class Servo {
 };
 
 
+// indique la position que doit prendre le Servo5 (la pince) pour s'ouvrir selon la taille cm passée en paramètre
 int cmTValeurServo5(float cm){
   if(cm >= 0 || cm <= 15.5) return 100*cm/9 + 200;
   return 200;
 }
 
+//converti des radian en degré
 int radianToDegre(float radian){
   return radian /PI*180 ;
 }
 
 
-
-
+//calcule la position en degré des Servos 0, 1, 2 et 3 selon les coordonnées x, y, z de la position d'arrivé du bras
 int* calculeDesAngles(int x, int y, int z) {
 
     //distance entre les Servos
@@ -91,9 +93,8 @@ int* calculeDesAngles(int x, int y, int z) {
     float radianS0 = acos(x / sqrt(x * x + y * y));
     int angleS0 = radianToDegre(radianS0);
 
-    float radianS3 = 0;
-    for (float i = 11*PI/20 ; i < PI; i += PI / 40)
-    {
+    float radianS3 = PI/2;/*
+    for (float i = 11*PI/20 ; i < PI; i += PI / 40){
       float tmpS1toS3 = sqrt(distance1*distance1 + distance2 * distance2 - 2 * distance1*distance2*cos(i));
 
         float tmpc1 = acos((distance2*distance2 + tmpS1toS3 * tmpS1toS3 - (distance1*distance1)) / (2 * tmpS1toS3*distance2));
@@ -107,7 +108,7 @@ int* calculeDesAngles(int x, int y, int z) {
     }
 
     if (radianS3 < PI / 2) { radianS3 = 0;  }//si le mouvement n'est pas possible
-
+    */
 
     float S2toS4 = sqrt(distance3*distance3 + distance2 * distance2 - 2 * distance2*distance3*cos(radianS3));
 
@@ -126,12 +127,10 @@ int* calculeDesAngles(int x, int y, int z) {
 
     float angleA3 = acos((S1toS4*S1toS4 + S1toS3 * S1toS3 - (distance3*distance3)) / (2 * S1toS3*S1toS4));
     float angleA = 0;
-    if (z < S1z)
-    {
+    if (z < S1z){
        angleA = angleA1 + angleA3 - angleA2;
     }
-    else
-    {
+    else{
        angleA = angleA1 + angleA3 + angleA2;
     }
 
@@ -157,8 +156,12 @@ int* calculeDesAngles(int x, int y, int z) {
 
 
 
-
+//calcule la position en degré des Servos 0, 1, 2 et 3 selon les coordonnées x, y, z de la position d'arrivé du bras
 int* calculeAngleVariateur(int x, int y, int z){
+  int AS0 = 0;
+  int AS1 = 0;
+  int AS2 = 0;
+  int AS3 = 0;
 
   //distance entre les Servos
   float r1 = 10.4;
@@ -202,15 +205,23 @@ int* calculeAngleVariateur(int x, int y, int z){
     angleS1 =  radianToDegre(alpha);
     angleS2 =  radianToDegre(beta);
     angleS3 =  radianToDegre(gamma);
-    if(angleS1 > 0 && angleS1 < 150 && angleS2 > 89 && angleS2 < 180 && angleS3 > 89 && angleS3 < 180  ){break;}
+
+    if(abs(90 - angleS3) < abs(90 - AS3)){
+      AS0 = angleS0;
+      AS1 = angleS1;
+      AS2 = angleS2;
+      AS3 = angleS3; 
+    }
+
+   
 
   }
    
   int* tab =new int[5];
-  tab[0] = angleS0;
-  tab[1] = angleS1;
-  tab[2] = angleS2;
-  tab[3] = angleS3;
+  tab[0] = AS0;
+  tab[1] = AS1;
+  tab[2] = AS2;
+  tab[3] = AS3;
 
   return tab; 
 }
