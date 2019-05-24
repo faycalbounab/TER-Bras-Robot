@@ -17,6 +17,23 @@ utiliserez un bras robotique. Ce TER a plusieurs objectifs, à savoir :
 
 ## Comment marche le projet ?
 
+### Installation de L'IDE et la librairie
+
+Tout d'abord nous bossons sur l'IDE d'Arduino du coup voici le lien pour télécharger l'IDE :
+https://www.arduino.cc/en/Main/Software#
+
+Ensuite devons télécharger une librairie pour l'ajouter dans la librairie de notre IDE
+
+![Figure](~/fayc/Desktop/arduino.jpg)
+
+Cette librairie peut etre télécharger sur le git hub ci dessous :
+
+https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library
+
+
+
+###
+
 Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la arduino. 
 Une fois cette étape finie on compile puis on téléverse pour lancer le bras. 
 Il faut ensuite entrer 3 coordonnées pour lui indiquer l'endroit où il doit se déplacer afin qu'il effectue un mouvement.
@@ -24,6 +41,8 @@ Et la valeur 0 pour dire s'il doit prendre un objet ou 1 s'il doit déposer un o
 Lorsque nous entrons les coordonnées dans le moniteur, il faut séléctionner l'option "pas de fin de ligne".
 Le mouvement est composé de 4 étapes, 
 chacune d'elles représente la rotation d'un des servo-moteurs(les Servos 4 et 5 sont exclus).
+
+
 
 
 
