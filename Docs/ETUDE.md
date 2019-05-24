@@ -59,10 +59,14 @@ pince (rotation, inclinaion et ouverture/fermeture) et 3 pour le bras(coude, ép
 
 C'est le bras robotique que nous utilisons pour notre TER
 
+https://www.gotronic.fr/art-bras-robotique-joy-it-robot02-26637.htm
+
 ### Bras robotisé en kit FreaksArm EF08070
 
 Bras motorisé didactique commandé via une carte Freaduino compatible Arduino à assembler soi-même avec châssis en bois, servomoteurs permettant des mouvements sur 4 axes et 2 joysticks.
 Pour un coût de 75,90€
+
+https://www.gotronic.fr/art-bras-robotise-en-kit-freaksarm-ef08070-25575.htm
 
 
 ### Bras Dobot Basic
@@ -74,9 +78,12 @@ Les éléments permettant d'obtenir toutes ces fonctionnalités sont inclus dans
 Le conception de ce bras permet d'obtenir des opérations avec une précision de 0,2 mm grâce à ses 4 axes et ses différents moteurs. Il peut être contrôlé de plusieurs façons via un PC par cordon USB, par bluetooth (smartphone et tablette, application Android et iOS disponible) et peut être programmé en C++, C, Python et Java. 
 Pour un coût de 1215€.
 
+https://www.gotronic.fr/art-bras-dobot-basic-26032.htm
 
 ### Bras robotique Braccio T050000
 
 Le bras motorisé et modulaire Braccio d'Arduino est livré en kit à assembler soi-même et se contrôle via une carte Arduino ou compatible (non incluse). Ce bras peut effectuer différents mouvements grâce à un ensemble de servomoteurs et dispose d'une pince pouvant saisir des objets jusqu'à 150 g. Le bras Braccio est polyvalent et sa modularité lui permet d'obtenir différentes configurations.
 Pour un coût de 238€.
+
+ https://www.gotronic.fr/art-bras-robotique-braccio-t050000-25878.htm
 
