@@ -53,8 +53,9 @@ void loop(){
   
   int* tab = new int[5];
 
-  tab = calculeDesAngles(x,y,z);
+  //tab = calculeDesAngles(x,y,z);
   //tab = calculeAngleVariateur(x,y,z);
+  tab = calculeDesAnglesFINAL(x,y,z,0);
   
 
   Serial.print("angle0 ");
@@ -92,6 +93,10 @@ void loop(){
     servo5.moveValeur(250);
     delay(500);
   }
+
+
+
+  //delay(20000);
   
 
   servo1.moveValeur(servo1.calculeMoveDegre( 90 ));
