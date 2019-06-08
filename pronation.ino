@@ -225,3 +225,77 @@ int* calculeAngleVariateur(int x, int y, int z){
 
   return tab; 
 }
+
+
+  int* calculeDesAnglesFINAL(int x, int y, int z, int appel) {
+
+    //distance entre les Servos
+    float distance1 = 10.4;
+    float distance2 = 9.8;
+    float distance3 = 14;
+
+    float dist4=sqrt(x*x+y*y);
+  
+    //position du Servo1
+    int S1y = 0;
+    float S1z = 9.5;
+
+    //Calcule des angles
+
+    float radianS0 = acos(x / sqrt(x * x + y * y));
+    int angleS0 = radianToDegre(radianS0);
+
+    //pour l'instant cet angle est prÈdÈfini
+    float radianS4 = PI / (2+appel*0.2);
+    int angleS4 = radianToDegre(radianS4);
+
+    float S3y = dist4 - cos(radianS4) * distance3;
+    float S3z = z + sin(radianS4) * distance3;
+
+    float S3toS1g = S1y - S3y;
+    float S3toS1d = S1z - S3z;
+    float S3toS1 = sqrt(S3toS1g*S3toS1g + S3toS1d * S3toS1d);
+    float S1toS4g = dist4 - S1y;
+    float S1toS4d = z - S1z;
+    float S1toS4 = sqrt(S1toS4g*S1toS4g + S1toS4d * S1toS4d);
+
+    float radianS2 = acos(((distance1*distance1 + distance2 * distance2 - S3toS1 * S3toS1) / (2 * distance1*distance2)));
+    float radianTriangle1 = acos(((S3toS1*S3toS1 + distance2 * distance2 - distance1 * distance1) / (2 * S3toS1*distance2)));
+    float radianTriangle2 = acos(((S3toS1*S3toS1 + distance3 * distance3 - S1toS4 * S1toS4) / (2 * S3toS1*distance3)));
+    float radianS3 = radianTriangle1 + radianTriangle2;
+
+
+    float angleA1 = acos((distance1*distance1 + S3toS1 * S3toS1 - (distance2*distance2)) / (2 * S3toS1*distance1));
+
+    float angleA2 = acos((dist4 - S1y) / S1toS4);
+
+
+    float angleA3 = acos((S1toS4*S1toS4 + S3toS1 * S3toS1 - (distance3*distance3)) / (2 * S3toS1*S1toS4));
+    float radianS1 = 0;
+    if (z < S1z)
+    {
+      radianS1 = angleA1 + angleA3 - angleA2;
+    }
+    else
+    {
+      radianS1 = angleA1 + angleA3 + angleA2;
+    }
+
+    int angleS3 = radianToDegre(radianS3);
+    int angleS2 = radianToDegre(radianS2);
+    int angleS1 = radianToDegre(radianS1);
+
+    if(!angleS1 && !angleS2 && !angleS3)
+    {
+        return calculeDesAnglesFINAL(x,y,z,appel+1);
+    }
+
+    int* tab = new int[4];
+    tab[0] = angleS0;
+    tab[1] = angleS1;
+    tab[2] = angleS2;
+    tab[3] = angleS3;
+
+    return tab;
+
+  }
