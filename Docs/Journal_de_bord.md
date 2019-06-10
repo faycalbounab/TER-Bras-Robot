@@ -67,3 +67,8 @@ Nous avons présenté les mouvements de prise et pose d'un fou. Nous avons parl�
 ### Semaine du 20/05/2019
 Cette semaine, nous avons repris des mesures plus précises des rotations des Servos (en prenant des photos et avec un rapporteur virtuel). Nous avons testé l'arduino wifi qui fait fonctionner le bras correctement et nous avons commencé à faire un client pour celle-ci.
 Nous ferons une pause la semaine prochaine.
+
+
+### Semaine du 03/06/2019
+
+
