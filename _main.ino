@@ -18,6 +18,8 @@ void loop(){
 
   int x,y,z,typeMouvement;
 
+
+  //LECTURE DES ENTREES
   Serial.println("Début lecture ");
   for (int i = 0; i < 4; i++) {
     while(Serial.available() == 0){
@@ -50,14 +52,12 @@ void loop(){
 
 
   
-  
+  //CALCULE DES ANGLES
   int* tab = new int[5];
-
   //tab = calculeDesAngles(x,y,z);
   //tab = calculeAngleVariateur(x,y,z);
-  tab = calculeDesAnglesFINAL(x,y,z,0);
-  
-
+  //tab = calculeDesAnglesFINAL(x,y,z,0);
+  tab = calculeAngleVariateur42(x,y,z);
   Serial.print("angle0 ");
   Serial.println(tab[0]);
   Serial.print("angle1 ");
@@ -67,6 +67,9 @@ void loop(){
   Serial.print("angle3 ");
   Serial.println(tab[3]);
 
+
+
+  //DEBUT DU MOUVEMENT : GESTION DE LA PINCE
   servo4.moveValeur(servo4.calculeMoveDegre(90));
   delay(1500);
 
@@ -74,17 +77,19 @@ void loop(){
     servo5.moveValeur(260);
     delay(1500);
   }
-  
-  
+
+  //DESCENTE
   servo0.moveValeur(servo0.calculeMoveDegre(tab[0]));
+  delay(500);
+  servo3.moveValeur(servo3.calculeMoveDegre(tab[3]));
   delay(500);
   servo1.moveValeur(servo1.calculeMoveDegre(tab[1]));
   delay(500);
   servo2.moveValeur(servo2.calculeMoveDegre(tab[2]));
   delay(500);
-  servo3.moveValeur(servo3.calculeMoveDegre(tab[3]));
-  delay(500);
+  
 
+  //PINCE EN BAS DU MOUVEMENT
   if(typeMouvement == 0){
     servo5.moveValeur(210);
     delay(500);
@@ -95,15 +100,13 @@ void loop(){
   }
 
 
-
-  //delay(20000);
   
-
-  servo1.moveValeur(servo1.calculeMoveDegre( 90 ));
+  //REMONTE
+  servo2.moveValeur(servo2.calculeMoveDegre( 140 ));
   delay(500);
-  servo2.moveValeur(servo2.calculeMoveDegre( 180 ));
+  servo1.moveValeur(servo1.calculeMoveDegre( 100 ));
   delay(500);
-  servo3.moveValeur(servo3.calculeMoveDegre( 160 ));
+  servo3.moveValeur(servo3.calculeMoveDegre( 150 ));
   delay(500);
   
 
