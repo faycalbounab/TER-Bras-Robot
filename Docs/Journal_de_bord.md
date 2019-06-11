@@ -73,5 +73,9 @@ Nous ferons une pause la semaine prochaine.
 Cette semaine, nous avons commencé le rapport et nous avons commit une première version du rapport, il n'est pas complet il manquCette semaine, nous avons commencé le rapport et nous avons commis une première version du rapport, il n'est pas complet il manque encore des informations que nous aurons d'ici à la semaine du 10/06. Pour le moment c'est surtout pour avoir une idée très large de comment il sera.e encore des informations que nous aurons d'ici la semaine du 10/06.Pour le moment c'est surtout pour avoir une idée très large de comment il sera.
 Nous avons aussi finis les calculs de notre bras pour la précision de celui-ci grace à une méthode que nous avons faites et nous sommes toujours entrain de bosser en parallèle le Wi-fi.
 
+### Réunion avec Mr Rennevier
+
+
+
 
 
