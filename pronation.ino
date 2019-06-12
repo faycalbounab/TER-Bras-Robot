@@ -117,17 +117,19 @@ class Plateau {
 };
 
 
-Servo servo0 = Servo(0,90,580,90,2.45,0,10);
+
+Servo servo0 = Servo(0,90,580,200,2.45,0,10);
 Servo servo1 = Servo(1,90,475,250,2.5,154,10);
 Servo servo2 = Servo(2,100,580,530,2.5,5,10);
 Servo servo3 = Servo(3,90,390,250,2.5,10,10); 
 Servo servo4 = Servo(4,90,570,290,100/45,0,10);
-Servo servo5 = Servo(5,200,450,210,100/45,0,10); 
+Servo servo5 = Servo(5,190,320,200,100/45,0,10); 
 
 // indique la position que doit prendre le Servo5 (la pince) pour s'ouvrir selon la taille cm passée en paramètre
 int cmTValeurServo5(float cm){
-  if(cm >= 0 || cm <= 15.5) return 100*cm/9 + 200;
-  return 200;
+  if(cm >= 0.5 && cm < 2) return 10*(cm-0.5) + 190;
+  if(cm >= 2 && cm <= 10) return 10*(cm-2) + 215;
+  return 220;
 }
 
 //converti des radian en degré
@@ -249,69 +251,4 @@ int* calculeAngleVariateur42(float x, float y, float z){
     tab[3] = AS3;
 
     return tab;
-}
-
-void mouvementBras(float x, float y, float z, float ouverturePince, float fermeturePince, int typeMouvement){
-
-  Serial.print("X ");
-   Serial.println(x);
-
-   Serial.print("Y ");
-   Serial.println(y);
-
-   Serial.print("Z ");
-   Serial.println(z);
-
-   //CALCULE DES ANGLES
-   int* tab = new int[5];
-   tab = calculeAngleVariateur42(x,y,z);
-   Serial.print("angle0 ");
-   Serial.println(tab[0]);
-   Serial.print("angle1 ");
-   Serial.println(tab[1]);
-   Serial.print("angle2 ");
-   Serial.println(tab[2]);
-   Serial.print("angle3 ");
-   Serial.println(tab[3]);
-
-    
-   //DEBUT DU MOUVEMENT : GESTION DE LA PINCE
-   servo4.moveValeur(servo4.calculeMoveDegre(90));
-   delay(500);
-
-   if(typeMouvement == 0){
-     servo5.moveValeur(cmTValeurServo5(ouverturePince));
-     delay(500);
-   }
-
-   //DESCENTE
-   servo0.moveValeur(servo0.calculeMoveDegre(tab[0]));
-   delay(500);
-   servo3.moveValeur(servo3.calculeMoveDegre(tab[3]));
-   delay(500);
-   servo2.moveValeur(servo2.calculeMoveDegre(tab[2]));
-   delay(500);
-   servo1.moveValeur(servo1.calculeMoveDegre(tab[1]));
-   delay(500);
-  
-
-   //PINCE EN BAS DU MOUVEMENT
-   if(typeMouvement == 0){
-     servo5.moveValeur(cmTValeurServo5(fermeturePince));
-     delay(500);
-   }
-   else{
-     servo5.moveValeur(cmTValeurServo5(ouverturePince));
-     delay(500);
-   }
-
-   //REMONTE
-   servo1.moveValeur(servo1.calculeMoveDegre( 100 ));
-   delay(500);
-   servo2.moveValeur(servo2.calculeMoveDegre( 140 ));
-   delay(500);
-   servo3.moveValeur(servo3.calculeMoveDegre( 150 ));
-   delay(500);
-  
-   Serial.println("");
 }
