@@ -1,56 +1,38 @@
-/*
-  WiFi Web Server LED Blink
-
- A simple web server that lets you blink an LED via the web.
- This sketch will print the IP address of your WiFi module (once connected)
- to the Serial monitor. From there, you can open that address in a web browser
- to turn on and off the LED on pin 9.
-
- If the IP address of your board is yourAddress:
- http://yourAddress/H turns the LED on
- http://yourAddress/L turns it off
-
- This example is written for a network using WPA encryption. For
- WEP or WPA, change the Wifi.begin() call accordingly.
-
- Circuit:
- * Board with NINA module (Arduino MKR WiFi 1010, MKR VIDOR 4000 and UNO WiFi Rev.2)
- * LED attached to pin 9
-
- created 25 Nov 2012
- by Tom Igoe
- */
- 
 #include <SPI.h>
 #include <WiFiNINA.h>
-
 #include "arduino_secrets.h" 
 
+//******************************************** Les variables globales ********************************************//
 
-
-
+Servo servo0 = Servo(0, 90, 580, 200, 2.45, 0, 10);
+Servo servo1 = Servo(1, 90, 475, 250, 2.5, 154, 10);
+Servo servo2 = Servo(2, 100, 580, 530, 2.5, 5, 10);
+Servo servo3 = Servo(3, 90, 390, 250, 2.5, 10, 10); 
+Servo servo4 = Servo(4, 90, 570, 290, 100/45, 0, 10);
+Servo servo5 = Servo(5, 190, 320, 200, 100/45, 0, 10); 
 Plateau plateau = Plateau();
-float initX = 19.15;
-float initY = 10.5;
-float initStock = 11;
-float decalCase = 5.7;
-int duree = 300;
+float initX = 19.15; // coordonnée en x de la case A8
+float initY = 10.5; // coordonnée en y de la case A8
+float initStock = 11; // coordonnée en x de la première pièce adverse que le bras prend
+float decalCase = 5.7; // taille d'une case du plateau d'échec sur lequel nous jouons
+int duree = 300; // le temps de delais en milliseconde entre le déplacement de chaque Servo lors d'un mouvement
 
-// pion, tour, cavalier, fou, reine 
-float ouverture[5] = {3.5,4.5,4.5,4.5,4.5};
-float fermeture[5] = {1.5, 2.2, 1.8, 2, 2.4};
-float hauteur[5] = {3,5,3,3.5,5};
+// les tableaux suivant donnent, dans l'ordre, les valeur du pion, de la tour, du cavalier, du fou et de la reine (et roi) en centimètre.
+float ouverture[5] = {3.5, 4.5, 4.5, 4.5, 4.5};
+float fermeture[5] = {1.5, 1.8, 1.8, 1.5, 1.8};
+float hauteur[5] = {3, 5, 3, 3.5, 5};
 
 
-
-char ssid[] = SECRET_SSID;        // your network SSID (name)
-char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
-int keyIndex = 0;                 // your network key Index number (needed only for WEP)
+char ssid[] = SECRET_SSID; // your network SSID (name)
+char pass[] = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
+int keyIndex = 0; // your network key Index number (needed only for WEP)
 
 
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
 
+
+//******************************************** Le Serveur ********************************************//
 void setup() {
   Serial.begin(9600);      // initialize serial communication
 
@@ -80,6 +62,7 @@ void setup() {
   pwm.begin();
   pwm.setPWMFreq(60);// start the web server on port 80
   printWifiStatus();                        // you're connected now, so print out the status
+
 }
 
 
@@ -177,48 +160,15 @@ void loop() {
         } else if (c != '\r') {  // if you got anything else but a carriage return character,
           currentLine += c;      // add it to the end of the currentLine
         }
-
-        
       }
-    
-      }
-      //a changer
-    Serial.println("ui");
+    }
     Serial.println(finishline);
     int pos = finishline.indexOf("GET /?ordre=");
     if(pos!=-1){
       String instruction = finishline.substring(pos + 12,pos+17);
       Serial.println(instruction);
-      int x,y,z,piece;
-  int coeff1x, coeff1y, coeff2x, coeff2y;
-
-      coeff1y = 72 - instruction.charAt(0);
-  coeff1x = instruction.charAt(1) - 49;
-  coeff2y = 72 - instruction.charAt(3);
-  coeff2x = instruction.charAt(4) - 49;
-
-
-  if(plateau.getEchiquier(coeff2x, coeff2y) != 0){  
-    piece = plateau.getEchiquier(coeff2x, coeff2y) - 1; //numero de la piece à prendre
-    float deplaceY = initY+abs(coeff2x-7)*decalCase;
-    if(deplaceY > 25){deplaceY -= 1;}
-    mouvementBras(initX-abs(coeff2y-7)*decalCase, initY+abs(coeff2x-7)*decalCase, hauteur[piece], ouverture[piece], fermeture[piece], 0); // prendre la piece qui gene
-    mouvementBras(initStock + plateau.getN() * decalCase, 2, hauteur[piece]+0.5, ouverture[piece], fermeture[piece], 1); // la déposer dans le stock
-    
-    plateau.setN(plateau.getN() + 1);
-  }
- 
-  float deplaceY1 = initY+abs(coeff1x-7)*decalCase;
-  if(deplaceY1 > 25){deplaceY1 -= 1;}
-  float deplaceY2 = initY+abs(coeff2x-7)*decalCase;
-  if(deplaceY2 > 25){deplaceY2 -= 1;}
-    
-  piece = plateau.getEchiquier(coeff1x, coeff1y) - 1; //numero de la piece à prendre
-  mouvementBras(initX-abs(coeff1y-7)*decalCase, deplaceY1, hauteur[piece], ouverture[piece], fermeture[piece], 0); //prise de la piece
-  mouvementBras(initX-abs(coeff2y-7)*decalCase, deplaceY2, hauteur[piece], ouverture[piece], fermeture[piece], 1); //poser la pièce
-
-  plateau.setEchiquier(coeff2x, coeff2y, plateau.getEchiquier(coeff1x, coeff1y));
-  plateau.setEchiquier(coeff1x, coeff1y, 0);
+     
+      jouer(instruction); // joue le coup donné en instruction
       
     }
     else{
@@ -251,20 +201,46 @@ void printWifiStatus() {
   Serial.println(ip);
 }
 
+
+
+//******************************************** Les méthodes de jeu ********************************************//
+
+void jouer(String instruction){
+  int coeff1x, coeff1y, coeff2x, coeff2y, piece;
+  coeff1y = 72 - instruction.charAt(0);
+  coeff1x = instruction.charAt(1) - 49;
+  coeff2y = 72 - instruction.charAt(3);
+  coeff2x = instruction.charAt(4) - 49;
+
+  if(plateau.getEchiquier(coeff2x, coeff2y) != 0){  
+    piece = plateau.getEchiquier(coeff2x, coeff2y) - 1; //numero de la piece à prendre
+    
+    float deplaceY = initY+abs(coeff2x-7)*decalCase;
+    if(deplaceY > 25){deplaceY -= 1;}
+    
+    mouvementBras(initX-abs(coeff2y-7)*decalCase, initY+abs(coeff2x-7)*decalCase, hauteur[piece], ouverture[piece], fermeture[piece], 0); // prendre la piece qui gene
+    mouvementBras(initStock + plateau.getN() * decalCase, 2, hauteur[piece]+0.5, ouverture[piece], fermeture[piece], 1); // la déposer dans le stock
+    plateau.setN(plateau.getN() + 1);
+  }
+ 
+  float deplaceY1 = initY+abs(coeff1x-7)*decalCase;
+  float deplaceY2 = initY+abs(coeff2x-7)*decalCase;
+  if(deplaceY1 > 25){deplaceY1 -= 1;}
+  if(deplaceY2 > 25){deplaceY2 -= 1;}
+    
+  piece = plateau.getEchiquier(coeff1x, coeff1y) - 1; //numero de la piece à prendre
+  mouvementBras(initX-abs(coeff1y-7)*decalCase, deplaceY1, hauteur[piece], ouverture[piece], fermeture[piece], 0); //prise de la piece
+  mouvementBras(initX-abs(coeff2y-7)*decalCase, deplaceY2, hauteur[piece], ouverture[piece], fermeture[piece], 1); //poser la pièce
+
+  plateau.setEchiquier(coeff2x, coeff2y, plateau.getEchiquier(coeff1x, coeff1y));
+  plateau.setEchiquier(coeff1x, coeff1y, 0);
+}
+
 void mouvementBras(float x, float y, float z, float ouverturePince, float fermeturePince, int typeMouvement){
 
-  Serial.print("X ");
-   Serial.println(x);
-
-   Serial.print("Y ");
-   Serial.println(y);
-
-   Serial.print("Z ");
-   Serial.println(z);
-
-   //CALCULE DES ANGLES
-   int* tab = new int[5];
-   tab = calculeAngleVariateur42(x,y,z);
+   //CALCUL DES ANGLES
+   int* tab = new int[4]; // le tableau où sont enregistré les angles des articulations 0 à 3.
+   calculAnglesArticulation(x,y,z,tab);
    Serial.print("angle0 ");
    Serial.println(tab[0]);
    Serial.print("angle1 ");
@@ -276,20 +252,19 @@ void mouvementBras(float x, float y, float z, float ouverturePince, float fermet
 
     
    //DEBUT DU MOUVEMENT : GESTION DE LA PINCE
-   servo4.moveValeur(servo4.calculeMoveDegre(90));
+   servo4.moveValeur(servo4.calculMoveDegre(90));
    if(typeMouvement == 0){
      servo5.moveValeur(cmTValeurServo5(ouverturePince));
      delay(duree);
    }
 
    //DESCENTE
-   servo0.moveValeur(servo0.calculeMoveDegre(tab[0]));
-   //delay(duree);
-   servo3.moveValeur(servo3.calculeMoveDegre(tab[3]));
+   servo0.moveValeur(servo0.calculMoveDegre(tab[0]));
+   servo3.moveValeur(servo3.calculMoveDegre(tab[3]));
    delay(duree);
-   servo2.moveValeur(servo2.calculeMoveDegre(tab[2]));
+   servo2.moveValeur(servo2.calculMoveDegre(tab[2]));
    delay(duree);
-   servo1.moveValeur(servo1.calculeMoveDegre(tab[1]));
+   servo1.moveValeur(servo1.calculMoveDegre(tab[1]));
    delay(duree);
   
 
@@ -302,9 +277,13 @@ void mouvementBras(float x, float y, float z, float ouverturePince, float fermet
    }
 
    //REMONTE
-   servo1.moveValeur(servo1.calculeMoveDegre( 110 ));
+   if(abs(90 - tab[2]) + abs(90 - tab[2]) < 40){
+    servo1.moveValeur(servo1.calculMoveDegre( 140 ));
+   }
+   else{
+    servo1.moveValeur(servo1.calculMoveDegre( 110 ));
+   }
    delay(duree);
-   Serial.println("");
-
    
+   Serial.println("");
 }
