@@ -1,19 +1,28 @@
- #include <Wire.h>
+#include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
-
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
+//******************************************** Les variables globales ********************************************//
+
+float r0 = 2; // distance sur le plan(x,y) entre le Servo0 et le Servo1
+float r1 = 10.4; // distance sur le plan(y,z) entre le Servo1 et le Servo2
+float r2 = 9.8; // distance sur le plan(y,z) entre le Servo2 et le Servo3
+float r3 = 14; // distance sur le plan(y,z) entre le Servo3 et la prise de la pince
+float S1z = 9.4; // hauteur du Servo 1 en centimètre
+
+
+//******************************************** Les classes ********************************************//
 
 class Servo {
 
   private : 
-    int numServo; //port sur lequel est branché le Servo
-    int mini; //valeur minumum du Servo
-    int maxi; //valeur maximum du Servo
-    float coeffDir; //coefficient directeur de la fonction calculeMoveDegre
-    int valeurPos; //valeur en position initiale
-    int initAngle; //angle minimum du Servo
-    int vitesse; //vitesse de rotation du Servo
+    int numServo; // port de la carte Arduino sur lequel est branché le Servo
+    int mini; // valeur minumum du Servo
+    int maxi; // valeur maximum du Servo
+    float coeffDir; // coefficient directeur de la fonction calculMoveDegre
+    int valeurPos; // valeur en position initiale
+    int initAngle; // angle minimum du Servo
+    int vitesse; // vitesse de rotation du Servo
 
     public:
       Servo(int numServo, int mini,int maxi,int valeurPos, float coeffDir, int initAngle, int vitesse){
@@ -26,8 +35,8 @@ class Servo {
         this->vitesse = vitesse;
       }
       
-      //prend un angle en parametre et calcule la valeur du déplacement du servo
-      int calculeMoveDegre(int angle){
+      //prend un angle en paramètre et calcul la valeur du déplacement du servo
+      int calculMoveDegre(int angle){
         if(numServo == 1) return coeffDir * (initAngle - angle) + mini;
         else return coeffDir * (angle - initAngle) + mini ;
         
@@ -49,26 +58,27 @@ class Servo {
           }
           this->valeurPos = valeur;
       }
-
-      //vérifie si la valeur de déplacement est correct
-      bool isMoveValid(int x){
-        if(x >= mini && x <= maxi){
-          return true;
-        }
-        return false;
-      }
 };
 
 
 class Plateau {
   private : 
+    // L'echiquier est orienté pour que le bras joue les noir
     int echiquier[8][8]; // 1 = pion, 2 = tour, 3 = cavalier, 4 = fou, 5 = reine et roi
-    
-    int n;
+    int n; // nombre de pièce adverse prise
 
     public :
       Plateau(){
-        this->n = 0;
+        resetPlateau();
+      }
+
+      int getEchiquier(int x, int y){ return echiquier[x][y]; }
+      void setEchiquier(int x, int y, int val){ echiquier[x][y] = val; }
+      int getN(){ return n; }
+      void setN(int x){ n = x; }
+
+      void resetPlateau(){
+        n = 0;
         for(int i = 0; i < 8; i++){
           echiquier[1][i] = 1;
           echiquier[6][i] = 1;
@@ -92,38 +102,10 @@ class Plateau {
         echiquier[0][4] = 5;
         echiquier[7][3] = 5;
         echiquier[7][4] = 5;
-        
-      }
-
-      int getEchiquier(int x, int y){
-        return echiquier[x][y];
-      }
-
-      void setEchiquier(int x, int y, int val){
-        echiquier[x][y] = val;
-      }
-
-      int getN(){
-        return n;
-      }
-
-      void setN(int x){
-        n = x;
-      }
-
-      
-      
-      
+     }
 };
 
-
-
-Servo servo0 = Servo(0,90,580,200,2.45,0,10);
-Servo servo1 = Servo(1,90,475,250,2.5,154,10);
-Servo servo2 = Servo(2,100,580,530,2.5,5,10);
-Servo servo3 = Servo(3,90,390,250,2.5,10,10); 
-Servo servo4 = Servo(4,90,570,290,100/45,0,10);
-Servo servo5 = Servo(5,190,320,200,100/45,0,10); 
+//******************************************** Les méthodes de calculs ********************************************//
 
 // indique la position que doit prendre le Servo5 (la pince) pour s'ouvrir selon la taille cm passée en paramètre
 int cmTValeurServo5(float cm){
@@ -137,118 +119,85 @@ int radianToDegre(float radian){
   return radian /PI*180 ;
 }
 
-
+//converti des degrés en radian
 float degreToRadian(float degre){
     return degre * PI / 180;
 }
 
 
+void calculAnglesArticulation(float x, float y, float z, int* tab){
+  
+  //***************** les variables *****************//
+  
+  int AS0 = 0, AS1 = 0,  AS2 = 0, AS3 = 0; // meilleurs angles en degré
+  int angleS0, angleS1, angleS2, angleS3; // angles en degré
+  float r, r4, r5, distance, r6, r7, Dy, Dz; // longueurs
+  float omega, omega1, omega2, alpha, alpha1, alpha2, beta, beta1, beta2, gamma, zeta; // angles en radian
+  float S1x, S1y, S3y; //coordonnées
+  
 
+  //***************** calcul de l'orientation *****************//
 
+  //Sur un plan (x, y)
+  r6 = sqrt(x * x + y * y);
+  r7 = sqrt(r6 * r6 - r0 * r0);
+  omega1 = acos(x / r6);
+  omega2 = (PI / 2) - acos(r0 / r6);
+  omega = omega1 - (omega2 / 2);
+  angleS0 = radianToDegre(omega);
 
-int* calculeAngleVariateur42(float x, float y, float z){
-    int AS0 = 0;
-    int AS1 = 0;
-    int AS2 = 0;
-    int AS3 = 0;
+  // On actualise les valeurs pour les calculs dans un plan (y, z)
+  S1x = cos((PI / 2)+ omega) * r0; // position du Servo1 en x
+  S1y = sin((PI / 2) + omega) * r0; // position du Servo1 en y
+  y = sqrt( (x - S1x) * (x - S1x) + (y - S1y) * (y - S1y)) + 2; // +2 pour le decalage de la pince
+  distance = 0;
+  S1y = 0;
 
-    float distance;
-
-    //distance entre les Servos
-    float r0 = 2;
-    float r1 = 10.4;
-    float r2 = 9.8;
-    float r3 = 14;
-
-
-    float S0toP = sqrt(x * x + y * y);
-    float S1toP = sqrt(S0toP * S0toP - r0 * r0);
-    float radianS0substr = acos(S1toP / S0toP);
-    float radianS0add = acos(x / S0toP);
-    float radianS0 =radianS0add - radianS0substr;
-    int angleS0 = radianToDegre(radianS0);
-
-
-    //position du Servo1
-    float S1x = cos((PI / 2)+ radianS0) * r0;
-    float S1y = sin((PI / 2) + radianS0) * r0;
-    float S1z = 9.4;
-
-    // +2 pour le decalage de la pince
+  for (float Dalpha = 130 ; Dalpha > 5 ; Dalpha -= 5) {
     
-    y = sqrt( (x - S1x) * (x - S1x) + (y - S1y) * (y - S1y)) + 2;
+    //***************** calcul de l'articulation *****************//
+    
+    Dy = abs(y - S1y);
+    Dz = abs(z - S1z);
+    r = sqrt(Dy * Dy + Dz * Dz);
 
-    distance = 0;
+    if(z <= S1z){ alpha1 = asin(Dy / r);}
+    if(z > S1z){ alpha1 = (PI / 2) + asin(Dz / r);}
+    alpha = degreToRadian(Dalpha);
+    alpha2 = alpha + (PI / 2) - alpha1;
 
+    r4 = sqrt(r1 * r1 + r * r - 2 * r * r1 * cos(alpha2));
+    beta1 = acos((r1 * r1 + r4 * r4 - r * r) / (2 * r1 * r4));
+    beta2 = acos((r2 * r2 + r4 * r4 - r3 * r3) / (2 * r2 * r4));
+    beta = beta1 + beta2;
+    gamma = acos((r2 * r2 + r3 * r3 - r4 * r4) / (2 * r2 * r3));
 
-
-    S1y = 0;
-
-
-
-    int angleS1, angleS2, angleS3;
-    float alpha,beta,gamma;
-
-    for (float Dalpha = 130 ; Dalpha > 5 ; Dalpha -= 5) {
-
-        //Calcule des angles
-
-        float Dy = abs(y - S1y);
-        float Dz = abs(z - S1z);
-        float r = sqrt(Dy * Dy + Dz * Dz);
-
-        float alpha1;
-        if(z <= S1z){ alpha1 = asin(Dy / r);}
-        if(z > S1z){ alpha1 = (PI / 2) + asin(Dz / r);}
-
-        alpha = degreToRadian(Dalpha);
-
-        float alpha2 = alpha + (PI / 2) - alpha1;
-
-        float r4 = sqrt(r1 * r1 + r * r - 2 * r * r1 * cos(alpha2));
-        float beta1 = acos((r1 * r1 + r4 * r4 - r * r) / (2 * r1 * r4));
-        float beta2 = acos((r2 * r2 + r4 * r4 - r3 * r3) / (2 * r2 * r4));
-
-        beta = beta1 + beta2;
-        gamma = acos((r2 * r2 + r3 * r3 - r4 * r4) / (2 * r2 * r3));
-
-        angleS1 =  radianToDegre(alpha);
-        angleS2 =  radianToDegre(beta);
-        angleS3 =  radianToDegre(gamma);
+    angleS1 =  radianToDegre(alpha);
+    angleS2 =  radianToDegre(beta);
+    angleS3 =  radianToDegre(gamma);
 
 
+    //***************** choix de la combinaison d'angle pour l'articulation *****************//
+    
+    r5 = sqrt(r1*r1 + r2*r2 - 2 * r1 * r2 * cos(beta));
+    zeta = acos(((r1*r1+r5*r5 -  r2*r2)/(2*r1*r5)));
+    S3y = cos(alpha - zeta) * r5;
 
-        float S3y;
-        float r5;
-
-
-        r5 = sqrt(r1*r1 + r2*r2 - 2 * r1 * r2 * cos(beta));
-        
-        float zeta;
-        zeta = acos(((r1*r1+r5*r5 -  r2*r2)/(2*r1*r5)));
-
-
-
-        S3y = cos(alpha - zeta) * r5;
-
-
-
-        if(abs(S3y - y) < abs(distance - y)  && angleS2 > 10 && angleS2 < 200 && angleS3 > 10 && angleS3 < 200){
-
-            distance = S3y;
-            AS0 = angleS0;
-            AS1 = angleS1;
-            AS2 = angleS2;
-            AS3 = angleS3;
-        }
-
+    if(abs(S3y - y) < abs(distance - y)  && angleS2 > 10 && angleS2 < 200 && angleS3 > 10 && angleS3 < 200){
+      distance = S3y;
+      AS0 = angleS0;
+      AS1 = angleS1;
+      AS2 = angleS2;
+      AS3 = angleS3;
     }
 
-    int* tab = new int[5];
-    tab[0] = AS0;
-    tab[1] = AS1;
-    tab[2] = AS2;
-    tab[3] = AS3;
+  }
 
-    return tab;
+  //***************** affectation des valeurs choisies *****************//
+  
+  tab[0] = AS0;
+  tab[1] = AS1;
+  tab[2] = AS2;
+  tab[3] = AS3;
 }
+
