@@ -145,10 +145,11 @@ void loop() {
             client.println("function effacer()");
             client.println("{");
             client.println("document.getElementById('formu').innerHTML='';");
+            client.println("if(prec!=null){");
             client.println("prec.style.color=precstyle;");
             client.println("prec.style.backgroundColor=precstyleb;");
             client.println("prec=null;");
-            client.println("}");
+            client.println("}}");
             client.println("</script>");
             client.println("</head><body onload='constr();'>");
             client.println("<div id='id'>");
@@ -156,10 +157,10 @@ void loop() {
             client.println("</div>");
             client.println("<form style='position:absolute;margin-left:410px;margin-top:10px;'>");
             client.println("<textarea style='width:385px;height:385px' name='ordre' id='formu'></textarea>");
-            client.println("");
+            client.println("<div>");
             client.println("<button type='submit' style='cursor:pointer;width:190px;height:40px;margin-top:5px;'>Envoyer</button>");
-            client.println("</form>");
-            client.println("<button onclick='effacer()' style='cursor:pointer;width:190px;height:40px;margin-top:410px;margin-left:612px;'>Effacer</button>");
+            client.println("</div></form>");
+            client.println("<button onclick='effacer()' style='position:absolute;cursor:pointer;width:190px;height:40px;margin-top:410px;margin-left:612px;'>Effacer</button>");
             client.println("");
             client.println("</body>");
             client.println("</html>");
@@ -184,9 +185,9 @@ void loop() {
       //a changer
     Serial.println("ui");
     Serial.println(finishline);
-    int pos = finishline.indexOf("ordre=");
+    int pos = finishline.indexOf("GET /?ordre=");
     if(pos!=-1){
-      String instruction = finishline.substring(pos + 6,pos+11);
+      String instruction = finishline.substring(pos + 12,pos+17);
       Serial.println(instruction);
       int x,y,z,piece;
   int coeff1x, coeff1y, coeff2x, coeff2y;
