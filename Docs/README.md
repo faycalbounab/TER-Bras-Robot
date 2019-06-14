@@ -39,8 +39,9 @@ Lorsque nous entrons les coordonnées dans le moniteur, il faut séléctionner l
 Le mouvement est composé de 4 étapes, 
 chacune d'elles représente la rotation d'un des servo-moteurs(les Servos 4 et 5 sont exclus).
 
+## Demonstration vidéo
 
-
+[![Alt text](https://img.youtube.com/vi/mupZESk5ud0/0.jpg)](https://www.youtube.com/watch?v=mupZESk5ud0)
 
 
 
