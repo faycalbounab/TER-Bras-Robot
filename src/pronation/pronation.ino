@@ -34,6 +34,12 @@ class Servo {
         this->initAngle = initAngle;
         this->vitesse = vitesse;
       }
+
+      void setVitesse(int v){
+        if(v >= 0 && v < 12){
+          vitesse = v;
+        }
+      }
       
       //prend un angle en paramètre et calcul la valeur du déplacement du servo
       int calculMoveDegre(int angle){
@@ -57,7 +63,7 @@ class Servo {
             }
           }
           this->valeurPos = valeur;
-      }
+      }    
 };
 
 
@@ -124,7 +130,7 @@ float degreToRadian(float degre){
     return degre * PI / 180;
 }
 
-
+// prend en paramètre les coordonnées (x, y, z) de la pièce à prendre et un tableau ou l'ont sauvegarde les angles de rotation
 void calculAnglesArticulation(float x, float y, float z, int* tab){
   
   //***************** les variables *****************//
@@ -139,11 +145,13 @@ void calculAnglesArticulation(float x, float y, float z, int* tab){
   //***************** calcul de l'orientation *****************//
 
   //Sur un plan (x, y)
+  
   r6 = sqrt(x * x + y * y);
   r7 = sqrt(r6 * r6 - r0 * r0);
   omega1 = acos(x / r6);
   omega2 = (PI / 2) - acos(r0 / r6);
   omega = omega1 - (omega2 / 2);
+  
   angleS0 = radianToDegre(omega);
 
   // On actualise les valeurs pour les calculs dans un plan (y, z)
@@ -182,7 +190,6 @@ void calculAnglesArticulation(float x, float y, float z, int* tab){
     r5 = sqrt(r1*r1 + r2*r2 - 2 * r1 * r2 * cos(beta));
     zeta = acos(((r1*r1+r5*r5 -  r2*r2)/(2*r1*r5)));
     S3y = cos(alpha - zeta) * r5;
-
     if(abs(S3y - y) < abs(distance - y)  && angleS2 > 10 && angleS2 < 200 && angleS3 > 10 && angleS3 < 200){
       distance = S3y;
       AS0 = angleS0;
@@ -200,4 +207,3 @@ void calculAnglesArticulation(float x, float y, float z, int* tab){
   tab[2] = AS2;
   tab[3] = AS3;
 }
-
