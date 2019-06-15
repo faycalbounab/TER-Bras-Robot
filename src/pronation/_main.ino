@@ -1,3 +1,25 @@
+/*
+ ******************************************************************************
+ * 
+ * Copyright (c) 2019 Groupe : Berriri Mehdi, Bounab Fayçal, Djema Sofiane, Doglio Arthur
+ * All rights reserved.
+ * 
+ * Ce projet s'inscrit dans le cadre d'un Travail d'Etude et de Recherche de Master 1 Informatique.
+ *
+ * Notice d'utilisation:
+ * 
+ * Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la carte Arduino.
+ * Ils doivent être connecté en les prenant de bas en haut sur les ports 0 à 5 de la carte.
+ * Il faut ensuite séléctionner le type de carte : UNO WIFI REV2.
+ * Dans le fichier arduino_secrets.h, il faut écrire le nom de votre réseau ainsi que le mot de passe.
+ * Une fois ces étape finies, on téléverse le code dans la carte. 
+ * On attend que la carte se connecte à votre réseau.
+ * Puis on connecte l'ordinateur au même réseau que la carte et on entre dans le navigateur l'IP du réseau wifi (l'adresse s'affiche sur la console de l'IDE).
+ * Enfin, on entre le coup qu'on veut jouer et on appuie sur "Envoyer".
+ *
+ ******************************************************************************
+ */
+
 #include <SPI.h>
 #include <WiFiNINA.h>
 #include "arduino_secrets.h" 
@@ -9,7 +31,7 @@ Servo servo1 = Servo(1, 90, 475, 250, 2.5, 154, 10);
 Servo servo2 = Servo(2, 100, 580, 530, 2.5, 5, 10);
 Servo servo3 = Servo(3, 90, 390, 250, 2.5, 10, 10); 
 Servo servo4 = Servo(4, 90, 570, 290, 100/45, 0, 10);
-Servo servo5 = Servo(5, 190, 320, 200, 100/45, 0, 10); 
+Servo servo5 = Servo(5, 190, 310, 200, 100/45, 0, 10); 
 Plateau plateau = Plateau();
 float initX = 19.15; // coordonnée en x de la case A8
 float initY = 10.5; // coordonnée en y de la case A8
@@ -20,13 +42,11 @@ int duree = 300; // le temps de delais en milliseconde entre le déplacement de 
 // les tableaux suivant donnent, dans l'ordre, les valeur du pion, de la tour, du cavalier, du fou et de la reine (et roi) en centimètre.
 float ouverture[5] = {3.5, 4.5, 4.5, 4.5, 4.5};
 float fermeture[5] = {1.5, 1.8, 1.8, 1.5, 1.8};
-float hauteur[5] = {3, 5, 3, 3.5, 5};
+float hauteur[5] = {3, 4, 2, 3.5, 5};
 
 
-char ssid[] = SECRET_SSID; // your network SSID (name)
-char pass[] = SECRET_PASS; // your network password (use for WPA, or use as key for WEP)
-int keyIndex = 0; // your network key Index number (needed only for WEP)
-
+char ssid[] = SECRET_SSID; // nom du réseau
+char pass[] = SECRET_PASS; // mot de passe du réseau
 
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
@@ -34,9 +54,8 @@ WiFiServer server(80);
 
 //******************************************** Le Serveur ********************************************//
 void setup() {
-  Serial.begin(9600);      // initialize serial communication
+  Serial.begin(9600);
 
-  // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -48,48 +67,40 @@ void setup() {
     Serial.println("Please upgrade the firmware");
   }
 
-  // attempt to connect to Wifi network:
+  // attend de se connecter à un réseau wifi
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to Network named: ");
-    Serial.println(ssid);                   // print the network name (SSID);
+    Serial.println(ssid); // affiche le nom du réseau (SSID);
 
-    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
-    // wait 10 seconds for connection:
-    delay(30000);
+    delay(20000); // attend 20 secondes pour la connexion
   }
-  server.begin(); 
+  server.begin(); // start the web server on port 80
   pwm.begin();
-  pwm.setPWMFreq(60);// start the web server on port 80
-  printWifiStatus();                        // you're connected now, so print out the status
+  pwm.setPWMFreq(60);
+  printWifiStatus(); // affiche le statut
 
 }
 
 
 void loop() {
-  WiFiClient client = server.available();   // listen for incoming clients
+  WiFiClient client = server.available();  
   String finishline = ""; 
-  if (client) {                             // if you get a client,
-    Serial.println("new client");           // print a message out the serial port
-    String currentLine = "";                // make a String to hold incoming data from the client 
+  if (client) {                    
+    Serial.println("new client");        
+    String currentLine = "";          
     finishline = "";
     int nbmessage=0;
-  while (client.connected()) {            // loop while the client's connected
-      if (client.available()) {             // if there's bytes to read from the client,
-        char c = client.read();             // read a byte, then
-        Serial.write(c);                    // print it out the serial monitor
-        if (c == '\n' && !nbmessage) {                    // if the byte is a newline character
-
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
+  while (client.connected()) {         
+      if (client.available()) {         
+        char c = client.read();         
+        Serial.write(c);                
+        if (c == '\n' && !nbmessage) {  
           if (currentLine.length() == 0) {
-            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
-            // and a content-type so the client knows what's coming, then a blank line:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
             client.println();
 
-            // the content of the HTTP response follows the header:
             client.println("<!doctype html>");
             client.println("<html><head>");
             client.println("<script type='text/javascript'>");
@@ -147,18 +158,16 @@ void loop() {
             client.println("");
             client.println("</body>");
             client.println("</html>");
-      
-            // The HTTP response ends with another blank line:
             client.println();
-            // break out of the while loop:
             break;
-          } else {    // if you got a newline, then clear currentLine:
-      finishline+=currentLine;
-      currentLine = "";
-      
+          } 
+          else {
+            finishline+=currentLine;
+            currentLine = "";
           }
-        } else if (c != '\r') {  // if you got anything else but a carriage return character,
-          currentLine += c;      // add it to the end of the currentLine
+        } 
+        else if (c != '\r') { 
+          currentLine += c;
         }
       }
     }
@@ -174,7 +183,7 @@ void loop() {
     else{
       Serial.println(pos);
     }
-    // close the connection:
+    // ferme la connexion
     finishline="";
     client.stop();
     Serial.println("client disonnected");
@@ -182,21 +191,17 @@ void loop() {
 }
 
 void printWifiStatus() {
-  // print the SSID of the network you're attached to:
   Serial.print("SSID: ");
   Serial.println(WiFi.SSID());
 
-  // print your board's IP address:
   IPAddress ip = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(ip);
 
-  // print the received signal strength:
   long rssi = WiFi.RSSI();
   Serial.print("signal strength (RSSI):");
   Serial.print(rssi);
   Serial.println(" dBm");
-  // print where to go in a browser:
   Serial.print("To see this page in action, open a browser to http://");
   Serial.println(ip);
 }
@@ -205,6 +210,7 @@ void printWifiStatus() {
 
 //******************************************** Les méthodes de jeu ********************************************//
 
+// permet d'effectuer un coup d'échec passé en paramètre
 void jouer(String instruction){
   int coeff1x, coeff1y, coeff2x, coeff2y, piece;
   coeff1y = 72 - instruction.charAt(0);
@@ -236,9 +242,10 @@ void jouer(String instruction){
   plateau.setEchiquier(coeff1x, coeff1y, 0);
 }
 
+// permet de prendre (typeMouvement = 0) ou poser (typeMouvement != 0) une pièce.
 void mouvementBras(float x, float y, float z, float ouverturePince, float fermeturePince, int typeMouvement){
 
-   //CALCUL DES ANGLES
+   //***************** calcul des angles *****************//
    int* tab = new int[4]; // le tableau où sont enregistré les angles des articulations 0 à 3.
    calculAnglesArticulation(x,y,z,tab);
    Serial.print("angle0 ");
@@ -251,14 +258,14 @@ void mouvementBras(float x, float y, float z, float ouverturePince, float fermet
    Serial.println(tab[3]);
 
     
-   //DEBUT DU MOUVEMENT : GESTION DE LA PINCE
+   //***************** début du mouvement : gestion de la pince *****************//
    servo4.moveValeur(servo4.calculMoveDegre(90));
    if(typeMouvement == 0){
      servo5.moveValeur(cmTValeurServo5(ouverturePince));
      delay(duree);
    }
 
-   //DESCENTE
+   //***************** descente du bras *****************//
    servo0.moveValeur(servo0.calculMoveDegre(tab[0]));
    servo3.moveValeur(servo3.calculMoveDegre(tab[3]));
    delay(duree);
@@ -268,7 +275,7 @@ void mouvementBras(float x, float y, float z, float ouverturePince, float fermet
    delay(duree);
   
 
-   //PINCE EN BAS DU MOUVEMENT
+   //***************** gestion de la pince en bas du mouvement *****************
    if(typeMouvement == 0){
      servo5.moveValeur(cmTValeurServo5(fermeturePince));
    }
@@ -276,7 +283,7 @@ void mouvementBras(float x, float y, float z, float ouverturePince, float fermet
      servo5.moveValeur(cmTValeurServo5(ouverturePince));
    }
 
-   //REMONTE
+   //***************** remonté du bras *****************//
    if(abs(90 - tab[2]) + abs(90 - tab[2]) < 40){
     servo1.moveValeur(servo1.calculMoveDegre( 140 ));
    }
