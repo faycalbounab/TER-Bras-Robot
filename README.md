@@ -15,29 +15,28 @@ utiliserez un bras robotique. Ce TER a plusieurs objectifs, à savoir :
 -Mettre en oeuvre quelques mouvements dans un jeu réel, en fixant les emplacements ou en utilisant une librairie de reconnaissance pour les éléments d'un jeu.
 
 
-## Comment marche le projet ?
+## Comment fonctionne le projet ?
 
-### Installation de L'IDE et la librairie
+### Installation de L'IDE et de la librairie
 
-Tout d'abord nous bossons sur l'IDE d'Arduino du coup voici le lien pour télécharger l'IDE :
+Nous travaillons sur l'IDE d'Arduino, voici le lien pour télécharger l'IDE :
 https://www.arduino.cc/en/Main/Software#
 
-Ensuite devons télécharger une librairie pour l'ajouter dans la librairie de notre IDE,
-cette librairie peut être téléchargé sur le github ci-dessous :
-
+Il faut ensuite télécharger une librairie. Celle-ci peut être télécharger sur lien le github ci-dessous :
 https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library
 
 
+### Utilisation du bras
 
-### Lancer le bras
+Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la carte Arduino.
+Ils doivent être connecté en les prenant de bas en haut sur les ports 0 à 5 de la carte.
+Il faut ensuite séléctionner le type de carte : UNO WIFI REV2.
+Dans le fichier arduino_secrets.h, il faut écrire le nom de votre réseau ainsi que le mot de passe.
+Une fois ces étape finies, on téléverse le code dans la carte. 
+On attend que la carte se connecte à votre réseau.
+Puis on connecte l'ordinateur au même réseau que la carte et on entre dans le navigateur l'IP du réseau wifi (l'adresse s'affiche sur la console de l'IDE).
+Enfin, on entre le coup qu'on veut jouer et on appuie sur "Envoyer".
 
-Pour lancer le projet, on doit d'abord connecter les différents fils du bras à la arduino. 
-Une fois cette étape finie on compile puis on téléverse pour lancer le bras. 
-Il faut ensuite entrer 3 coordonnées pour lui indiquer l'endroit où il doit se déplacer afin qu'il effectue un mouvement.
-Et la valeur 0 pour dire s'il doit prendre un objet ou 1 s'il doit déposer un objet.
-Lorsque nous entrons les coordonnées dans le moniteur, il faut séléctionner l'option "pas de fin de ligne".
-Le mouvement est composé de 4 étapes, 
-chacune d'elles représente la rotation d'un des servo-moteurs(les Servos 4 et 5 sont exclus).
 
 ### Demonstration vidéo
 
