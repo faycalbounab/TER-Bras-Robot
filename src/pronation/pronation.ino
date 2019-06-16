@@ -1,3 +1,15 @@
+/*
+ ******************************************************************************
+ * 
+ * Copyright (c) 2019 Groupe : Berriri Mehdi, Bounab Fayçal, Djema Sofiane, Doglio Arthur
+ * All rights reserved.
+ * 
+ * Ce projet s'inscrit dans le cadre d'un Travail d'Etude et de Recherche de Master 1 Informatique.
+ *
+ ******************************************************************************
+ */
+
+
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
