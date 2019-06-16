@@ -80,8 +80,7 @@ Nous avons présenté notre client et notre serveur qui est pour le moment opér
 
 ### Semaine du 10/06/2019
 
-Cette semaine nous avons réaliser la vidéo de la démonstration, ainsi que le rapport de notre projet.
-
+Cette semaine nous avons finalisé le projet, nous nous sommes occupés des derniers détails à régler, faire la vidéo de démonstration, finaliser le rapport et mettre en place les diapositives.
 
 
 
